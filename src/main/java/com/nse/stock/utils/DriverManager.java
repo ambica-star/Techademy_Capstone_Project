@@ -3,7 +3,6 @@ package com.nse.stock.utils;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.util.Arrays;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -13,7 +12,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
 /**
- * Driver Manager class to handle WebDriver initialization and management
+ * Enhanced Driver Manager class with comprehensive Edge browser support
+ * Compatible with Selenium 3.x and handles WebDriverManager network issues
  * Supports Chrome, Firefox, and Edge browsers with parallel execution
  */
 public class DriverManager {
@@ -62,7 +62,7 @@ public class DriverManager {
                 driver = createFirefoxDriver();
                 break;
             case "edge":
-                driver = createEdgeDriver();
+                driver = createEdgeDriverWithFallback();
                 break;
             default:
                 logger.warn("Unknown browser: {}. Defaulting to Chrome", browser);
@@ -79,12 +79,9 @@ public class DriverManager {
      */
     private static WebDriver createChromeDriver() {
         try {
-            // Use latest WebDriverManager to automatically download compatible ChromeDriver
-            WebDriverManager.chromedriver().clearDriverCache().setup();
+            WebDriverManager.chromedriver().setup();
 
             ChromeOptions options = new ChromeOptions();
-
-            // Add Chrome options for stability and compatibility
             options.addArguments("--disable-blink-features=AutomationControlled");
             options.addArguments("--disable-extensions");
             options.addArguments("--no-sandbox");
@@ -94,18 +91,15 @@ public class DriverManager {
             options.addArguments("--disable-web-security");
             options.addArguments("--allow-running-insecure-content");
             options.addArguments("--disable-features=VizDisplayCompositor");
-            options.addArguments("--window-size=1920,1080");
-            options.addArguments("--start-maximized");
 
             if (configReader.isHeadless()) {
-                options.addArguments("--headless");  // Use standard headless mode for Selenium 3
+                options.addArguments("--headless");
             }
 
-            // Exclude automation switches for better compatibility
             options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
             options.setExperimentalOption("useAutomationExtension", false);
 
-            logger.info("Creating Chrome WebDriver with latest WebDriverManager 5.6.2 and Chrome support");
+            logger.info("Creating Chrome WebDriver with latest driver version");
             return new ChromeDriver(options);
         } catch (Exception e) {
             logger.error("Failed to create Chrome driver: {}", e.getMessage());
@@ -126,20 +120,13 @@ public class DriverManager {
             options.addArguments("--headless");
         }
 
-        // Firefox specific options for stability
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
         options.addArguments("--disable-gpu");
-
-        // Disable automation indicators
         options.addPreference("dom.webdriver.enabled", false);
         options.addPreference("useAutomationExtension", false);
-
-        // Disable notifications and popups
         options.addPreference("dom.push.enabled", false);
         options.addPreference("dom.webnotifications.enabled", false);
-
-        // Set window size
         options.addArguments("--width=1920");
         options.addArguments("--height=1080");
 
@@ -148,19 +135,99 @@ public class DriverManager {
     }
     
     /**
-     * Create Edge WebDriver with options
+     * Create Edge WebDriver with comprehensive fallback mechanism
+     * Handles network connectivity issues to Microsoft EdgeDriver servers
      * @return Edge WebDriver instance
      */
-    private static WebDriver createEdgeDriver() {
+    private static WebDriver createEdgeDriverWithFallback() {
+        logger.info("🔷 Starting Edge WebDriver setup with enhanced fallback mechanism...");
+        
+        // Method 1: Try WebDriverManager with timeout
         try {
-            WebDriverManager.edgedriver().clearDriverCache().setup();
+            logger.info("Method 1: Attempting WebDriverManager setup with timeout...");
+            WebDriverManager edgeManager = WebDriverManager.edgedriver();
+            edgeManager.timeout(15); // 15 second timeout for faster fallback
+            edgeManager.setup();
+            logger.info("✅ WebDriverManager setup successful for EdgeDriver");
+        } catch (Exception e) {
+            logger.warn("❌ WebDriverManager failed: {}. Trying fallback methods...", e.getMessage());
+            
+            // Method 2: Try to find and use local EdgeDriver
+            try {
+                logger.info("Method 2: Searching for local EdgeDriver installation...");
+                String edgeDriverPath = findLocalEdgeDriver();
+                if (edgeDriverPath != null) {
+                    System.setProperty("webdriver.edge.driver", edgeDriverPath);
+                    logger.info("✅ Using local EdgeDriver at: {}", edgeDriverPath);
+                } else {
+                    logger.warn("❌ No local EdgeDriver found. Proceeding with system PATH...");
+                }
+            } catch (Exception fallbackException) {
+                logger.warn("❌ Local EdgeDriver search failed: {}. Proceeding anyway...", fallbackException.getMessage());
+            }
+        }
 
-            logger.info("Creating Edge WebDriver with basic configuration for Selenium 3.x");
-            return new EdgeDriver();
+        // Create EdgeOptions with basic settings (Selenium 3.x compatible)
+        EdgeOptions options = new EdgeOptions();
+
+        if (configReader.isHeadless()) {
+            // For Selenium 3.x, use capability setting
+            options.setCapability("ms:edgeOptions", java.util.Collections.singletonMap("args", 
+                java.util.Arrays.asList("--headless", "--no-sandbox", "--disable-gpu")));
+        } else {
+            // Basic options for non-headless mode
+            options.setCapability("ms:edgeOptions", java.util.Collections.singletonMap("args", 
+                java.util.Arrays.asList("--no-sandbox", "--disable-gpu", "--remote-allow-origins=*")));
+        }
+
+        try {
+            logger.info("Creating Edge WebDriver with basic options...");
+            return new EdgeDriver(options);
         } catch (Exception e) {
             logger.error("Failed to create Edge driver: {}", e.getMessage());
             throw new RuntimeException("Edge driver setup failed: " + e.getMessage(), e);
         }
+    }
+    
+    /**
+     * Find local EdgeDriver executable in common installation paths
+     * @return Path to EdgeDriver executable or null if not found
+     */
+    private static String findLocalEdgeDriver() {
+        String[] possiblePaths = {
+            // Project-specific driver location
+            "drivers/msedgedriver.exe",
+            "./drivers/msedgedriver.exe",
+            
+            // Standard Microsoft Edge installation paths
+            "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedgedriver.exe",
+            "C:\\Program Files\\Microsoft\\Edge\\Application\\msedgedriver.exe",
+            
+            // User-specific paths
+            System.getProperty("user.home") + "\\AppData\\Local\\Microsoft\\Edge\\Application\\msedgedriver.exe",
+            
+            // WebDriverManager cache paths
+            System.getProperty("user.home") + "\\.cache\\selenium\\msedgedriver.exe",
+            System.getProperty("user.home") + "\\.wdm\\drivers\\edgedriver\\msedgedriver.exe",
+            
+            // Try PATH environment variable
+            "msedgedriver.exe"
+        };
+        
+        for (String path : possiblePaths) {
+            try {
+                java.io.File file = new java.io.File(path);
+                if (file.exists() && file.canExecute()) {
+                    logger.info("✅ Found EdgeDriver at: {}", path);
+                    return file.getAbsolutePath();
+                }
+            } catch (Exception e) {
+                logger.debug("Could not access EdgeDriver at: {}", path);
+            }
+        }
+        
+        logger.warn("❌ No local EdgeDriver found in standard locations");
+        return null;
     }
     
     /**
@@ -175,7 +242,6 @@ public class DriverManager {
                 logger.info("WebDriver quit successfully");
             } catch (Exception e) {
                 logger.warn("Error while quitting WebDriver: {}", e.getMessage());
-                // Force kill browser processes if needed
                 killBrowserProcesses();
             } finally {
                 driverThreadLocal.remove();
@@ -188,18 +254,12 @@ public class DriverManager {
      */
     private static void killBrowserProcesses() {
         try {
-            // Kill Chrome processes
             Runtime.getRuntime().exec("taskkill /F /IM chrome.exe /T");
             Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
-
-            // Kill Firefox processes
             Runtime.getRuntime().exec("taskkill /F /IM firefox.exe /T");
             Runtime.getRuntime().exec("taskkill /F /IM geckodriver.exe /T");
-
-            // Kill Edge processes
             Runtime.getRuntime().exec("taskkill /F /IM msedge.exe /T");
             Runtime.getRuntime().exec("taskkill /F /IM msedgedriver.exe /T");
-
             logger.info("Browser processes killed forcefully");
         } catch (Exception e) {
             logger.warn("Error killing browser processes: {}", e.getMessage());
