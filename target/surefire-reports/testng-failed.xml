@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite thread-count="3" guice-stage="DEVELOPMENT" verbose="0" name="Failed suite [NSE Stock Testing Suite - Parallel Browser Execution]" parallel="methods">
+  <listeners>
+    <listener class-name="com.nse.stock.listeners.ExtentReportListener"/>
+    <listener class-name="com.nse.stock.listeners.ScreenshotListener"/>
+  </listeners>
+  <test thread-count="3" verbose="0" name="Chrome Browser Tests(failed)" parallel="methods">
+    <parameter name="browser" value="chrome"/>
+    <classes>
+      <class name="com.nse.stock.tests.Stock52WeekHighLowTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="test52WeekExtractionMethods"/>
+          <include name="setUpClass"/>
+          <include name="test52WeekDataConsistency"/>
+          <include name="tearDown"/>
+          <include name="test52WeekHighLowExtraction"/>
+          <include name="test52WeekDataAvailability"/>
+          <include name="testTataMotors52WeekData"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- com.nse.stock.tests.Stock52WeekHighLowTest -->
+      <class name="com.nse.stock.tests.StockProfitLossTest">
+        <methods>
+          <include name="testBatchProfitLossCalculation"/>
+          <include name="testStockProfitLossCalculation"/>
+          <include name="setUp"/>
+          <include name="setUpClass"/>
+          <include name="testTataMotorsProfitLoss"/>
+          <include name="tearDown"/>
+          <include name="testCustomPurchasePriceProfitLoss"/>
+          <include name="testProfitLossEdgeCases"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- com.nse.stock.tests.StockProfitLossTest -->
+      <class name="com.nse.stock.tests.StockInformationTest">
+        <methods>
+          <include name="testNSEWebsiteAccessibility"/>
+          <include name="setUp"/>
+          <include name="setUpClass"/>
+          <include name="testStockInformationCompleteness"/>
+          <include name="testStockInformationDisplay"/>
+          <include name="tearDown"/>
+          <include name="testInvalidStockSearch"/>
+          <include name="testDefaultStockInformation"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- com.nse.stock.tests.StockInformationTest -->
+    </classes>
+  </test> <!-- Chrome Browser Tests(failed) -->
+  <test thread-count="3" verbose="0" name="Firefox Browser Tests(failed)" parallel="methods">
+    <parameter name="browser" value="firefox"/>
+    <classes>
+      <class name="com.nse.stock.tests.Stock52WeekHighLowTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="test52WeekExtractionMethods"/>
+          <include name="setUpClass"/>
+          <include name="test52WeekDataConsistency"/>
+          <include name="tearDown"/>
+          <include name="test52WeekHighLowExtraction"/>
+          <include name="test52WeekDataAvailability"/>
+          <include name="testTataMotors52WeekData"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- com.nse.stock.tests.Stock52WeekHighLowTest -->
+      <class name="com.nse.stock.tests.StockProfitLossTest">
+        <methods>
+          <include name="testBatchProfitLossCalculation"/>
+          <include name="testStockProfitLossCalculation"/>
+          <include name="setUp"/>
+          <include name="setUpClass"/>
+          <include name="testTataMotorsProfitLoss"/>
+          <include name="tearDown"/>
+          <include name="testCustomPurchasePriceProfitLoss"/>
+          <include name="testProfitLossEdgeCases"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- com.nse.stock.tests.StockProfitLossTest -->
+      <class name="com.nse.stock.tests.StockInformationTest">
+        <methods>
+          <include name="testNSEWebsiteAccessibility"/>
+          <include name="setUp"/>
+          <include name="setUpClass"/>
+          <include name="testStockInformationCompleteness"/>
+          <include name="testStockInformationDisplay"/>
+          <include name="tearDown"/>
+          <include name="testInvalidStockSearch"/>
+          <include name="testDefaultStockInformation"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- com.nse.stock.tests.StockInformationTest -->
+    </classes>
+  </test> <!-- Firefox Browser Tests(failed) -->
+  <test thread-count="3" verbose="0" name="Edge Browser Tests(failed)" parallel="methods">
+    <parameter name="browser" value="edge"/>
+    <classes>
+      <class name="com.nse.stock.tests.Stock52WeekHighLowTest">
+        <methods>
+          <include name="setUp"/>
+          <include name="test52WeekExtractionMethods"/>
+          <include name="setUpClass"/>
+          <include name="test52WeekDataConsistency"/>
+          <include name="tearDown"/>
+          <include name="test52WeekHighLowExtraction"/>
+          <include name="test52WeekDataAvailability"/>
+          <include name="testTataMotors52WeekData"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- com.nse.stock.tests.Stock52WeekHighLowTest -->
+      <class name="com.nse.stock.tests.StockProfitLossTest">
+        <methods>
+          <include name="testBatchProfitLossCalculation"/>
+          <include name="testStockProfitLossCalculation"/>
+          <include name="setUp"/>
+          <include name="setUpClass"/>
+          <include name="testTataMotorsProfitLoss"/>
+          <include name="tearDown"/>
+          <include name="testCustomPurchasePriceProfitLoss"/>
+          <include name="testProfitLossEdgeCases"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- com.nse.stock.tests.StockProfitLossTest -->
+      <class name="com.nse.stock.tests.StockInformationTest">
+        <methods>
+          <include name="testNSEWebsiteAccessibility"/>
+          <include name="setUp"/>
+          <include name="setUpClass"/>
+          <include name="testStockInformationCompleteness"/>
+          <include name="testStockInformationDisplay"/>
+          <include name="tearDown"/>
+          <include name="testInvalidStockSearch"/>
+          <include name="testDefaultStockInformation"/>
+          <include name="tearDownClass"/>
+        </methods>
+      </class> <!-- com.nse.stock.tests.StockInformationTest -->
+    </classes>
+  </test> <!-- Edge Browser Tests(failed) -->
+</suite> <!-- Failed suite [NSE Stock Testing Suite - Parallel Browser Execution] -->
