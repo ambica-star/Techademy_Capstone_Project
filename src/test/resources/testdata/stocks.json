@@ -1,0 +1,78 @@
+{
+  "nifty50_stocks": [
+    {
+      "symbol": "TATAMOTORS",
+      "companyName": "Tata Motors Limited",
+      "purchasePrice": 500.00,
+      "expectedSector": "Automobile and Auto Components"
+    },
+    {
+      "symbol": "RELIANCE",
+      "companyName": "Reliance Industries Limited",
+      "purchasePrice": 2500.00,
+      "expectedSector": "Oil Gas & Consumable Fuels"
+    },
+    {
+      "symbol": "INFY",
+      "companyName": "Infosys Limited",
+      "purchasePrice": 1500.00,
+      "expectedSector": "IT Services"
+    },
+    {
+      "symbol": "TCS",
+      "companyName": "Tata Consultancy Services Limited",
+      "purchasePrice": 3500.00,
+      "expectedSector": "IT Services"
+    },
+    {
+      "symbol": "HDFCBANK",
+      "companyName": "HDFC Bank Limited",
+      "purchasePrice": 1600.00,
+      "expectedSector": "Banks"
+    },
+    {
+      "symbol": "ICICIBANK",
+      "companyName": "ICICI Bank Limited",
+      "purchasePrice": 900.00,
+      "expectedSector": "Banks"
+    },
+    {
+      "symbol": "KOTAKBANK",
+      "companyName": "Kotak Mahindra Bank Limited",
+      "purchasePrice": 1800.00,
+      "expectedSector": "Banks"
+    },
+    {
+      "symbol": "BHARTIARTL",
+      "companyName": "Bharti Airtel Limited",
+      "purchasePrice": 800.00,
+      "expectedSector": "Telecommunication"
+    },
+    {
+      "symbol": "ITC",
+      "companyName": "ITC Limited",
+      "purchasePrice": 400.00,
+      "expectedSector": "Tobacco"
+    },
+    {
+      "symbol": "SBIN",
+      "companyName": "State Bank of India",
+      "purchasePrice": 600.00,
+      "expectedSector": "Banks"
+    }
+  ],
+  "test_scenarios": [
+    {
+      "testName": "Verify Stock Information Display",
+      "description": "Verify that stock information is displayed correctly on NSE website"
+    },
+    {
+      "testName": "Calculate Profit Loss",
+      "description": "Calculate and verify profit/loss based on current market price vs purchase price"
+    },
+    {
+      "testName": "Verify 52 Week High Low",
+      "description": "Extract and verify 52 weeks high and low prices for stocks"
+    }
+  ]
+}

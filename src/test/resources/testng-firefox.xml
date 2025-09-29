@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="NSE Stock Testing Suite - Firefox" parallel="false" thread-count="1">
+    
+    <parameter name="browser" value="firefox"/>
+    
+    <listeners>
+        <listener class-name="com.nse.stock.listeners.ExtentReportListener"/>
+        <listener class-name="com.nse.stock.listeners.ScreenshotListener"/>
+    </listeners>
+
+    <!-- Firefox Browser Tests -->
+    <test name="NSE Stock Tests - Firefox" parallel="false" thread-count="1">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.nse.stock.tests.StockInformationTest"/>
+            <class name="com.nse.stock.tests.StockProfitLossTest"/>
+            <class name="com.nse.stock.tests.Stock52WeekHighLowTest"/>
+        </classes>
+    </test>
+
+</suite>

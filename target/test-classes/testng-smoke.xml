@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="NSE Stock Testing Smoke Suite" parallel="false" thread-count="1">
+    
+    <parameter name="browser" value="chrome"/>
+    
+    <listeners>
+        <listener class-name="com.nse.stock.listeners.ExtentReportListener"/>
+        <listener class-name="com.nse.stock.listeners.ScreenshotListener"/>
+        <listener class-name="com.nse.stock.listeners.RetryListener"/>
+    </listeners>
+
+    <!-- Smoke Tests - Quick validation -->
+    <test name="Smoke Tests" parallel="false">
+        <parameter name="browser" value="chrome"/>
+        <classes>
+            <class name="com.nse.stock.tests.StockInformationTest">
+                <methods>
+                    <include name="testNSEWebsiteAccessibility"/>
+                    <include name="testDefaultStockInformation"/>
+                </methods>
+            </class>
+            <class name="com.nse.stock.tests.StockProfitLossTest">
+                <methods>
+                    <include name="testTataMotorsProfitLoss"/>
+                </methods>
+            </class>
+            <class name="com.nse.stock.tests.Stock52WeekHighLowTest">
+                <methods>
+                    <include name="testTataMotors52WeekData"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>

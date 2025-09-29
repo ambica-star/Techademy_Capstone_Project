@@ -1,0 +1,23 @@
+2025-09-29 12:42:46.764 [main] INFO  com.nse.stock.utils.ConfigReader - Configuration properties loaded successfully
+2025-09-29 12:42:47.333 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.base.BaseTest - Setting up test class with browser: chrome
+2025-09-29 12:42:47.785 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.utils.TestDataReader - Stock test data loaded successfully
+2025-09-29 12:42:47.804 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.base.BaseTest - Starting test setup for browser: chrome
+2025-09-29 12:42:47.808 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.utils.DriverManager - Creating WebDriver for browser: chrome
+2025-09-29 12:42:54.540 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.utils.DriverManager - Creating Chrome WebDriver with latest WebDriverManager 5.6.2 and Chrome support
+2025-09-29 12:42:58.754 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.utils.DriverManager - WebDriver created successfully for browser: chrome
+2025-09-29 12:42:58.906 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.base.BaseTest - WebDriver setup completed successfully
+2025-09-29 12:42:59.328 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.listeners.ExtentReportListener - ExtentReports initialized successfully
+2025-09-29 12:42:59.343 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.listeners.ExtentReportListener - Test started: test52WeekHighLowExtraction - Extract and verify 52-week high and low prices for stocks
+2025-09-29 12:42:59.347 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.listeners.ScreenshotListener - Test started: test52WeekHighLowExtraction on browser: chrome in thread: TestNG-test=Chrome Browser Tests-1
+2025-09-29 12:42:59.347 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.tests.Stock52WeekHighLowTest - Starting 52-week high/low extraction test for: TATAMOTORS
+2025-09-29 12:42:59.411 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.pages.NSEHomePage - NSE Home Page initialized
+2025-09-29 12:42:59.425 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.pages.StockDetailsPage - Stock Details Page initialized
+2025-09-29 12:42:59.427 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.pages.NSEHomePage - Navigating to NSE website: https://www.nseindia.com/
+2025-09-29 12:43:47.872 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.pages.NSEHomePage - Searching for stock: TATAMOTORS
+2025-09-29 12:44:12.270 [TestNG-test=Chrome Browser Tests-1] WARN  com.nse.stock.pages.NSEHomePage - No suggestions found, trying direct navigation
+2025-09-29 12:44:12.271 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.pages.NSEHomePage - Navigating directly to get quotes: https://www.nseindia.com/get-quotes/equity?symbol=TATAMOTORS
+2025-09-29 12:44:17.780 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.pages.NSEHomePage - Stock search completed for: TATAMOTORS
+2025-09-29 12:44:20.869 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.pages.StockDetailsPage - Stock details page loaded successfully
+2025-09-29 12:44:21.330 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.utils.ScreenshotUtils - Screenshot saved: src/reports/screenshots\before_52week_TATAMOTORS_TestNG-test=Chrome Browser Tests-1_2025-09-29_12-44-20.png
+2025-09-29 12:44:21.331 [TestNG-test=Chrome Browser Tests-1] INFO  com.nse.stock.pages.StockDetailsPage - Extracting stock information from page
+2025-09-29 12:45:32.044 [TestNG-test=Chrome Browser Tests-1] WARN  com.nse.stock.pages.StockDetailsPage - Unable to parse percentage: -113.50 (-0.46%)

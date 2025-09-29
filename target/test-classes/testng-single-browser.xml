@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="NSE Stock Testing Single Browser Suite" verbose="2">
+    
+    <parameter name="browser" value="firefox"/>
+    
+    <listeners>
+        <listener class-name="com.nse.stock.listeners.ExtentReportListener"/>
+        <listener class-name="com.nse.stock.listeners.ScreenshotListener"/>
+        <listener class-name="com.nse.stock.listeners.RetryListener"/>
+    </listeners>
+
+    <!-- Single Browser Tests -->
+    <test name="Single Browser Tests">
+        <classes>
+            <class name="com.nse.stock.tests.StockInformationTest">
+                <methods>
+                    <include name="testNSEWebsiteAccessibility"/>
+                    <include name="testDefaultStockInformation"/>
+                    <include name="testStockInformationDisplay"/>
+                </methods>
+            </class>
+            <class name="com.nse.stock.tests.StockProfitLossTest">
+                <methods>
+                    <include name="testTataMotorsProfitLoss"/>
+                    <include name="testCustomPurchasePriceProfitLoss"/>
+                </methods>
+            </class>
+            <class name="com.nse.stock.tests.Stock52WeekHighLowTest">
+                <methods>
+                    <include name="test52WeekHighLowExtraction"/>
+                    <include name="testTataMotors52WeekData"/>
+                    <include name="test52WeekDataConsistency"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+
+</suite>
