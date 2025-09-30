@@ -112,8 +112,6 @@
                     <source>8</source>
                     <target>8</target>
                     <encoding>UTF-8</encoding>
-                    <fork>true</fork>
-                    <executable>${java.home}/../bin/javac</executable>
                 </configuration>
             </plugin>
 

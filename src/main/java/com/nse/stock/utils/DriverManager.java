@@ -140,30 +140,30 @@ public class DriverManager {
      * @return Edge WebDriver instance
      */
     private static WebDriver createEdgeDriverWithFallback() {
-        logger.info("🔷 Starting Edge WebDriver setup with enhanced fallback mechanism...");
-        
+        logger.info("Starting Edge WebDriver setup with enhanced fallback mechanism...");
+
         // Method 1: Try WebDriverManager with timeout
         try {
             logger.info("Method 1: Attempting WebDriverManager setup with timeout...");
             WebDriverManager edgeManager = WebDriverManager.edgedriver();
             edgeManager.timeout(15); // 15 second timeout for faster fallback
             edgeManager.setup();
-            logger.info("✅ WebDriverManager setup successful for EdgeDriver");
+            logger.info("WebDriverManager setup successful for EdgeDriver");
         } catch (Exception e) {
-            logger.warn("❌ WebDriverManager failed: {}. Trying fallback methods...", e.getMessage());
-            
+            logger.warn("WebDriverManager failed: {}. Trying fallback methods...", e.getMessage());
+
             // Method 2: Try to find and use local EdgeDriver
             try {
                 logger.info("Method 2: Searching for local EdgeDriver installation...");
                 String edgeDriverPath = findLocalEdgeDriver();
                 if (edgeDriverPath != null) {
                     System.setProperty("webdriver.edge.driver", edgeDriverPath);
-                    logger.info("✅ Using local EdgeDriver at: {}", edgeDriverPath);
+                    logger.info("Using local EdgeDriver at: {}", edgeDriverPath);
                 } else {
-                    logger.warn("❌ No local EdgeDriver found. Proceeding with system PATH...");
+                    logger.warn("No local EdgeDriver found. Proceeding with system PATH...");
                 }
             } catch (Exception fallbackException) {
-                logger.warn("❌ Local EdgeDriver search failed: {}. Proceeding anyway...", fallbackException.getMessage());
+                logger.warn("Local EdgeDriver search failed: {}. Proceeding anyway...", fallbackException.getMessage());
             }
         }
 
@@ -218,15 +218,15 @@ public class DriverManager {
             try {
                 java.io.File file = new java.io.File(path);
                 if (file.exists() && file.canExecute()) {
-                    logger.info("✅ Found EdgeDriver at: {}", path);
+                    logger.info("Found EdgeDriver at: {}", path);
                     return file.getAbsolutePath();
                 }
             } catch (Exception e) {
                 logger.debug("Could not access EdgeDriver at: {}", path);
             }
         }
-        
-        logger.warn("❌ No local EdgeDriver found in standard locations");
+
+        logger.warn("No local EdgeDriver found in standard locations");
         return null;
     }
     
